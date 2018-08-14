@@ -1,13 +1,241 @@
-<!doctype html>
+<!DOCTYPE html>
+<link type="text/css" rel="stylesheet" href="/static/basic.css"> 
 <html>
+
 <head>
-	<title>Demo Page</title>
+    <title>Industrial Database: LITTLE SISTERS OF SERENITY</title>
+
+    <!-- meta stuff -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <html lang="en" class=" ">
+    <meta charset='utf-8' />
+
+    <!-- home page csss -->
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<!--    <script src="/js/handlebars.min.js" type="text/javascript"></script> -->
+
     {{#each jsscripts}}
     <script src="/static/{{this}}"></script>
     {{/each}}
+
 </head>
+
 <body>
-	{{{body}}}
+    <div id="background-wrap">
+        <div id="bg-shadow">
+
+            <!-- OSU Top Hat -->
+            <!--  BEGIN OSU TOP HAT -->
+            <div id="top-hat" style="border-bottom-color: ##dbd6d0;">
+                <div id="top-hat-interior" class="wrapper4">
+                    <a href="About:Blank" title="About:Blank"><img src="/img/aboutBlank.gif" alt="Blank Image Link" class="tag" /></a>
+                    <ul class="utility">
+                        <li class="first"><a href="/serenity">Home</a></li>
+                        <li class=""><a href="/serenity/Item">Items</a></li>
+                        <li class=""><a href="/serenity/Recipe">Recipes</a></li>
+                        <li class=""><a href="/serenity/Factory">Factories</a></li>
+                        <li class=""><a href="/serenity/Factory/EXECUTE">EXECUTE</a></li>
+                        <li class=""><a href="/serenity/BP">Blueprints</a></li>
+                        <li class=""><a href="/serenity/Farm">Farms</a></li>
+                        <li class="last"><a href="/serenity/Market">Markets</a></li>
+                        <li class=""><a href="/serenity/market/CARRIED">CARRIED</a></li>                    </ul>
+                </div>
+            </div>
+            <!--  END OSU TOP HAT -->
+
+            <!-- START YUI GRID DOCUMENT TYPE DEFINITION - checks for left content, if there is, adds the defnition for YUI document class t2 -->
+            <div id="doc4" class="yui-t5">
+                <!-- END YUI GRID DOCUMENT TYPE DEFINITION -->
+
+                <div id="page">
+                    <div id="page-inner">
+
+                        <div id="hd" role="banner">
+                            <div id="header">
+                                <div id="header-inner" class="clear-block">
+
+                                    <div id="logo-title">
+
+                                        <div id="logo">
+                                            <a href="/" title="Home" rel="home"></a>
+                                        </div>
+
+                                        <!-- START SITE TITLE -->
+                                        <div id="site-title">
+                                            <div id="site-title-inner" class="region region-site-title">
+                                                <div id="Alliance-Name"><a href="About:Blank">Serenity Initiative</a>
+
+                                                </div>
+                            <h1 id="site-name">
+                            <a href="About:Blank">Little Sisters of Serenity Homepage</a>
+                            </h1>
+                                            </div>
+                                            <!-- /#site-title-inner -->
+                                        </div>
+                                        <!-- /#site-title -->
+                                        <!-- END SITE TITLE -->
+
+                                    </div>
+                                    <!-- /#logo-title -->
+
+                                    <div id="header-blocks" class="region region-header">
+                                        <a name="navigation" id="navigation"></a>
+                                        <div id="block-nice_menus-1" class="block block-nice_menus region-odd odd region-count-1 count-1">
+                                            <div class="block-inner">
+
+                                            </div>
+                                            <!-- /block-inner -->
+                                        </div>
+                                        <!-- /block -->
+                                    </div>
+                                    <!-- /header-blocks -->
+                                </div>
+                                <!-- /#header-inner -->
+                            </div>
+                            <!-- /#header -->
+                        </div>
+                        <!-- /hd -->
+                        <!-- END DRUPAL HEADER -->
+
+                    </div>
+
+                    <!-- breadcrumbs go here, but were removed -->
+
+                    <div id="bd" role="main">
+
+                        <div id="yui-main">
+                            <div class="yui-b">
+                                <div class="yui-g">
+                                    <div class="interior">
+                                        <div id="main">
+                                            <div id="main-inner" class="clear-block with-navbar">
+                                                <div id="content">
+                                                    <div id="content-inner">
+                                                        <div id="content-area" class="region region-content">
+                                                            <div id="node-84" class="node node-type-page">
+                                                                <div class="node-inner">
+                                                                    <div class="content">
+                                                                        <div id="content-header">
+                                                                            <h2 class="title">Welcome {{User_name}}!</h2>
+                                                                        </div>
+
+                                                                        <!-- Primary content goes here! -->
+
+
+
+                                                                        {{{body}}}
+
+
+
+                                                                        <!-- /Primary content -->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /node-inner, /node -->
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- /#content-inner -->
+                                                </div>
+                                                <!-- /#content -->
+
+                                            </div>
+                                            <!-- /#main-inner -->
+                                        </div>
+                                        <!-- /#main -->
+                                        <!-- END DRUPAL MAIN -->
+
+                                    </div>
+                                    <!-- interior -->
+
+                                    <!-- START CHECK FOR RIGHT COL - if there is a content, end the main content's grid unit, open the right content's grid unit -->
+                                </div>
+                                <!-- yui-g -->
+                                <!-- END CHECK FOR RIGHT COL - grid unit and holder closed -->
+
+                            </div>
+                            <!-- /yui-b -->
+                        </div>
+                        <!-- /yui-main -->
+
+                        <!-- START CHECK FOR LEFT COL -->
+                        <div class="yui-b">
+                            <div class="interior">
+
+                                <!-- START DRUPAL LEFT - if there is left content, open a yui-b column and print it-->
+                                <div id="sidebar-left" class="icon-">
+                                    <div id="sidebar-left-inner" class="region region-left">
+                                        <div id="sidebar">
+                                            <div id="block-menu-secondary-links" class="block block-menu region-odd even region-count-1 count-2">
+                                                <div class="block-inner">
+
+                                                    <div class="content">
+                                                        <ul class="menu">
+                                                            <li class="List Item 1"><a href="About:Blank" title="Item Title1" class="active">List Item 1</a></li>
+                                                            <li class="List Item 2"><a href="About:Blank" title="Item Title2">List Item 2</a></li>
+                                                            <li class="List Item 3"><a href="About:Blank" title="Item Title3">List Item 3</a></li>
+                                                            <li class="List Item 4"><a href="About:Blank" title="Item Title4">List Item 4</a>
+
+                                                                <!-- Good place for some custom handlebars menus -->
+                                                                <ul class="menu">
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title4_1">List Sub-Item 4_1</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title4_2">List Sub-Item 4_2</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title4_3">List Sub-Item 4_3</a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                            <li class="expanded List Item 5"><a href="About:Blank" title="Item Title5">List Item 5</a>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title5_1">List Sub-Item 4_1</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title5_2">List Sub-Item 4_2</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title5_3">List Sub-Item 4_3</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title5_4">List Sub-Item 4_4</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title5_5">List Sub-Item 4_5</a></li>
+                                                                    <li class="leaf"><a href="About:Blank" title="Subitem Title5_6">List Sub-Item 4_6</a></li>
+                                                            <li class="List Item 6"><a href="About:Blank" title="Item Title6">List Item 6</a>
+                                                            <li class="List Item 7"><a href="About:Blank" title="Item Title7">List Item 7</a>
+                                                            <li class="List Item 8"><a href="About:Blank" title="Item Title8">List Item 8</a>
+
+<!--                                                            <li class="expanded first active-trail"><a href="" title="">Class Tools</a>
+    example code                                                </li>
+-->
+                                                            <li class="collapsed"><a href="javascript:OpenWindow('/time.php',350,350)" title="">Check Time on Server</a></li>
+                                                            <li class="collapsed"><a href="https://teach.engr.oregonstate.edu/teach.php?type=logout" title="">Logout</a></li>
+
+                                                        </ul>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- /block-inner, /block -->
+                                        </div>
+                                    </div>
+                                    <!-- /#sidebar-left-inner -->
+                                </div>
+                                <!-- /#sidebar-left -->
+                            </div>
+                            <!-- /interior -->
+                        </div>
+                        <!-- /#bd -->
+                    </div>
+                    <!-- /#page-inner -->
+                </div>
+                <!-- /#page -->
+            </div>
+            <!-- /doc -->
+        </div>
+        <!--  </div> top-bg -->
+        <div id="ft" role="contentinfo" class="yui-t2">
+            <div id="ft-inner">
+            </div>
+            <!-- /ft-inner -->
+        </div>
+        <!-- /ft -->
+    </div>
+
 </body>
+
 </html>

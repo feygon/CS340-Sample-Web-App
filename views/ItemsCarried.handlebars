@@ -1,0 +1,101 @@
+<html>
+{{#each ItemCarried}}
+{{this}}
+{{/each}}
+<h3>Add new Market Orders:</h3>
+<form id="addOrder" action="/addOrder" method="post">
+    Market Name: <select name="marketName"><br>
+        <option value="Jita">Jita</option>
+        <option value="Dodixie">Dodixie</option>
+        <option value="Rens">Rens</option>
+        <option value="Amarr">Amarr</option>
+        <option value="Minmatar">Minmatar</option>
+        <option value="Gallente">Gallente</option>
+        <option value="Caldari">Caldari</option>
+        <option value="Angel">Angel</option>
+        <option value="Freeport">Freeport</option>
+        <option value="Thera">Thera</option>
+    </select><br>
+
+    Item Name: <select name="itemName">
+	{{#each Items}}
+	<option value="{{itemName}}">{{name}}</option>
+	{{/each}}
+    </select><br>
+
+    Sold?: <select name="itemSoldQQ">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+    </select><br>
+
+    Sell Value: <input type="number" disabled="true" min="0" step="0.01" name="itemSellVal"><br>
+
+<!-- Thanks to Ehsan Sajjad for the below code. -->
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',function() {
+    document.querySelector('select[name="itemSoldQQ"]').onchange=changeSell;
+},false);
+
+function changeSell(event){
+    if(getElementById("itemSoldQQ").value() === "Yes") {
+        document.getElementById("itemSellVal").disabled = false;
+    } else {
+        document.getElementById("itemSellVal").disabled = true;
+    }
+};
+</script>
+<!-- Thanks to Ehsan Sajjad for the above code. -->
+
+
+    Bought?: <select name="itemBoughtQQ">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+    </select><br>
+
+    Buy Value: <input type="number" disabled="true" min="0" step="0.01" name="itemBuyVal" onchange="changeBuy()"><br>
+
+<!-- Thanks to Ehsan Sajjad for the below code. -->
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',function() {
+    document.querySelector('select[name="itemBoughtQQ"]').onchange=changeBuy;
+},false);
+
+function changeBuy(event){
+    if(getElementById("itemBoughtQQ").value() === "Yes") {
+        document.getElementById("itemSellVal").disabled = false;
+    } else {
+        document.getElementById("itemSellVal").disabled = true;
+    }
+};
+</script>
+<!-- Thanks to Ehsan Sajjad for the above code. -->
+
+
+
+
+    <br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current people:</h3>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Type</th> 
+        <th>Volume</th>  
+        <th>Refinement Level</th>
+    </thead> 
+    <tbody> 
+        {{#each ItemCarried}} 
+        <tr> 
+            <td>{{itemName}}</td> 
+            <td>{{itemType}}</td> 
+            <td>{{itemVol}}</td> 
+            <td>{{itemRefinement}}</td>
+            <td><button onclick="deleteItem({{id}})">Delete</button></td>
+            <td><a href="/items/{{id}}">Update</a></td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+</html>
