@@ -1,0 +1,41 @@
+<html>
+{{#each Market}}
+{{this}}
+{{/each}}
+
+<h3>Add new Markets</h3>
+<form id="addMarket" action="/addMarket" method="post">
+    Market: <input type="text" name="marketName"><br>
+    Hub?: <input type="radio" id="marketHubYes" name="marketHubQQ" value="Yes"/>
+	<label for="marketHubYes">Yes</label>
+	<input type="radio" id="marketHubNo" name="marketHubQQ" value="No" checked/>
+	<label for="marketHubNo">No</label><br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current Markets:</h3>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Number of items Sold</th> 
+	<th>Number of items Bought</th>
+    </thead> 
+    <tbody> 
+        {{#each Market}} 
+        <tr> 
+            <td>{{marketName}}</td> 
+            <td>PLACEHOLDER for count of items sold</td> 
+	    <td>PLACEHOLDER for count of items bought</td>
+            <td><button onclick="deleteMarket({{id}})">Delete</button></td>
+            <td><a href="/items/{{id}}">Update</a></td>
+        </tr>
+        {{/each}}
+    </tbody> 
+</table> 
+<h3>Which markets are selling a product?</h3>
+Pick a product: <select name="itemCarriedSS">
+	{{#each Item}}
+	<option value="{{itemName}}">{{name}}</option>
+	{{/each}}
+    </select> <button onclick="carriedQuery(itemCarriedSS.value)">Expand</button>
+</html>

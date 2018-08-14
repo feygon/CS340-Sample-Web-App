@@ -1,0 +1,54 @@
+<h3>Add new Items:</h3>
+<form id="addItem" action="/addItem" method="post">
+    Item Name: <input type="text" name="itemName"><br>
+    Type: <select name="itemType">
+        <option value="farm">Farmed</option>
+        <option value="manufactured">Manufactured</option>
+        <option value="mined">Mined</option>
+    </select><br>
+    Volume: <input type="number" step="0.01" name = "itemVol"><br>
+    Refinement Level: <select name="itemRefinement"> 
+        <option value="0">0</option>
+	    <option value="1">1</option>
+	    <option value="2">2</option>
+	    <option value="3">3</option>
+	    <option value="4">4</option>
+    </select><br>
+    <br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current people:</h3>
+<h4>Filters:</h4>
+<a href="/serenity/item/Type">by Type  </a> -- Display all items of each type. (link under construction)<br>
+<a href="/serenity/item/Blueprint">Group by Blueprint  </a> -- Display all items which can be manufactured. (link under construction)<br>
+<a href="/serenity/item/Farm">Group by Farm</a> -- Display all items that can be grown on farms. (link under construction)<br>
+<table>
+    <thead> 
+        <th>Name</th> 
+        <th>Type</th> 
+        <th>Volume</th>  
+        <th>Refinement Level</th>
+    </thead>
+    <tbody> 
+        {{#each items}} 
+        <tr> 
+            <td class="prodName">{{ItemName}}</td> 
+            <td>{{Type}}</td> 
+            <td>{{Volume}}</td> 
+            <td>{{TechLevel}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script id="componentBoxScript" type="text/x-handlebars-template">
+    <select name="componentID" value="componentID">
+        {{#each nothing}}
+        <option value={{ItemID}}>{{ItemName}}</option>
+        {{/each}}
+        {{#each items}}
+        <option value={{ItemID}}>{{ItemName}}</option>
+        {{/each}}
+    </select>)
+</script>

@@ -1,0 +1,57 @@
+<html>
+{{#each Farm}}
+{{this}}
+{{/each}}
+
+<h3>Add new Farms</h3>
+    Recipe: <select name="farmRecipe">
+	{{#each Recipe}} <!-- where it's a farm recipe type -->
+	<option value="{{recipeName}}">{{name}}</option>
+	{{/each}}
+</select><br>
+    Quantity: <input type="number" min="0" value="1"><br>
+<button action="/newFarm" method="post">New Farm</button>
+<br>
+
+<h3>Change Farm Recipe:</h3>
+<form id="changeFarm" action="/changeFarm" method="post">
+    Farm #: <select name="farmID">
+	{{#each Farm}}
+	<option value="{{farmID}}">{{id}}</option>
+	{{/each}}
+    </select><br>
+
+    Recipe: <select name="farmRecipe">
+	{{#each Recipe}} <!-- where it's a farm recipe type -->
+	<option value="{{recipeName}}">{{name}}</option>
+	{{/each}}
+	</select>
+    <br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current Farms:</h3>
+<table>
+    <thead> 
+        <th>ID</th> 
+        <th>Recipe</th> 
+        <th></th>
+    </thead> 
+    <tbody> 
+        {{#each Item}} 
+        <tr> 
+            <td>{{farmID}}</td> 
+            <td>{{farmRecipe}}</td> 
+            <td><button onclick="deleteFarm({{id}})">Delete</button></td>
+            <td><a href="/items/{{id}}">Update</a></td>
+        </tr>
+        {{/each}} 
+    </tbody> 
+</table> 
+<h3>How many farms are producing a recipe?</h3>
+Pick a recipe: <select name="BPRecipe2">
+	{{#each Recipe}}
+	<option value="{{recipeName}}">{{name}}</option>
+	{{/each}}
+    </select> <button onclick="expandRecipe(BPRecipe2.value)">Expand</button>
+</html>

@@ -14,10 +14,12 @@ app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
+if (process.argv[2]===undefined){process.argv[2]="3000";}
 app.set('port', process.argv[2]);
 app.set('mysql', mysql);
+app.set('hbs', handlebars);
 
-app.use('/people', require('./people.js'));
+app.use('/serenity', require('./serenity.js'));
 
 app.use(function(req,res){
   res.status(404);

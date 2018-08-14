@@ -1,0 +1,35 @@
+<html>
+{{#each Factory}}
+{{this}}
+{{/each}}
+<h3>Add new Factory:</h3>
+<form id="addFactory" action="/addFactory" method="post">
+    Factory Name: <input type="text" name="factoryName"><br>
+    Capacity: <input type="number" min="0" max="11" name="factoryCapacity"><br>
+    Production Delay (%): <input type="number" min="0" max="100" name="factoryDelayPP"><br>
+    <br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current Factories:</h3>
+<table>
+    <thead> 
+        <th>Factory Name</th> 
+        <th>Capacity</th> 
+        <th>Production Delay (%)</th>  
+        <th></th>
+    </thead> 
+    <tbody> 
+        {{#each Factory}} 
+        <tr> 
+            <td>{{factoryName}}</td> 
+            <td>{{factoryCapacity}}</td> 
+            <td>{{factoryDelayPP}}</td> 
+	    <td><a href="/factories/viewJobs/{{id}}">Executing</a></td>
+            <td><button onclick="deleteRecipe({{id}})">Delete</button></td>
+            <td><a href="/factories/capacity/{{id}}">Update Capacity</a></td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+</html>

@@ -1,0 +1,161 @@
+<html>
+
+<script>
+    var expanded = new Array();
+    var List__items = {};
+    var List__nothing = {};
+    var List__components = {};
+    var itemIDs = new Array();
+    var itemNames = new Array();
+    var nothingIDs = new Array();
+    var nothingNames = new Array();
+    var cmpQty = new Array();
+    var cmpRecipeID = new Array();
+    var cmpProductID = new Array();
+    var cmpID = new Array();
+    var cmpName = new Array();
+    var cmpType = new Array();
+    var cmpType = new Array();
+    var cmpCat = new Array();
+    var cmpVol = new Array();
+    var cmpTechLvl = new Array();
+    var cmpCountPerRecipe = new Array();
+</script>
+
+<!-- import item list -->
+    {{#each items}}
+<script>
+    itemIDs[{{@index}}]    = "{{ItemID}}";
+    itemNames[{{@index}}]  = "{{ItemName}}";
+</script>
+    {{/each}}
+
+<!-- recipe list values -->
+    {{#each recipe}}
+<script>
+    cmpCountPerRecipe[{{RecipeID}}]   = "{{QtyCmp}}";
+</script>
+    {{/each}}
+
+<!-- import nothing list -->
+    {{#each nothing}}
+<script>
+    nothingIDs[{{@index}}]  = "{{ItemID}}";
+    nothingNames[{{@index}}]= "{{ItemName}}";
+</script>
+    {{/each}}
+
+<!-- import component list -->
+    {{#each components}}
+<script>
+    cmpRecipeID[{{@index}}] = "{{recipeID}}";
+    cmpProductID[{{@index}}]= "{{productID}}";
+    cmpID[{{@index}}]       = "{{cmpID}}";
+    cmpName[{{@index}}]     = "{{cmpName}}";
+    cmpType[{{@index}}]     = "{{cmpType}}";
+    cmpCat[{{@index}}]      = "{{cmpCategory}}";
+    cmpVol[{{@index}}]      = "{{cmpVol}}";
+    cmpTechLvl[{{@index}}]  = "{{cmpTechLevel}}";
+    cmpQty[{{@index}}]      = "{{cmpQty}}";
+</script>
+    {{/each}}
+
+<script>
+    List__items.itemIDs             = itemIDs;
+    List__items.itemNames           = itemNames;
+    List__nothing.nothingIDs        = nothingIDs;
+    List__nothing.nothingNames      = nothingNames;
+    List__components.cmpCount       = cmpCountPerRecipe;
+    List__components.cmpQty         = cmpQty;
+    List__components.cmpRecipeID    = cmpRecipeID;
+    List__components.cmpProductID   = cmpProductID;
+    List__components.cmpID          = cmpID;
+    List__components.cmpName        = cmpName;
+    List__components.cmpType        = cmpType;
+    List__components.cmpCat         = cmpCat;
+    List__components.cmpVol         = cmpVol;
+    List__components.cmpTechLvl     = cmpTechLvl;
+</script>
+
+
+<h3>Add new Recipe:</h3>
+<form id="addRecipe" action="/addRecipe" method="post">
+    Products without Recipes: 
+    <select id="recipeSelect" name="recipeName">
+	   {{#each noRecipeItems}}
+	   <option value="{{Item_ID}}">{{ItemName}}</option>
+	   {{/each}}
+    </select><br>
+
+    Type: 
+    <select name="recipeType">
+        <option value="farm">Farmed</option>
+        <option value="manufactured">Manufactured</option>
+    </select><br>
+    Hourly Growth (%): 
+    <input type="number" name="hourly_prodpp" min="0" max = "100"><br>
+    Hourly Production (#): 
+    <input type="number" name="hourlyProductionPP" min="0"><br>
+    <table id="componentTable">
+        <thead>
+            <th>Component</th>
+            <th>Quantity</th>
+        </thead>
+        <tbody>
+            <tr id="hiddenRow1" hidden=true> <!-- add leaves to this-->
+                <td><select  name="componentID" value="componentID">
+                    {{# each nothing}}
+                    <option value={{ItemID}}>{{ItemName}}</option>
+                    {{/each}}
+                    {{#each items}}
+                    <option value="{{ItemID}}">{{ItemName}}</option>
+                    {{/each}}
+                </select></td>
+                <td><input type="number" name="componentQty" min="0"></td>
+                <td><button type="button" onclick="deleteRow(this)">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+        <button type="button" onclick="addRecipeComponent()">Add a component</button>
+               
+	<br>
+
+    <br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current Recipes:</h3>
+
+<h4>Filters:</h4>
+<a href="/recipe/Farm">Farming Recipes</a> -- Display all farming recipes. (link under construction)<br>
+<a href="/recipe/Manufactured">Manufactured Recipes</a> -- Display all manufacturing recipes. (link under construction)<br>
+
+<table id="recipeTableX">
+    <thead> 
+        <th>Product Name</th> 
+        <th>Type</th> 
+        <th>Number of Components</th>
+        <th>Tech Level</th>
+        <th>Category</th>
+        <th>Hourly Prod. (%)</th>
+        <th>Hourly Growth (#)</th>  
+    </thead> 
+    <tbody id="recipeTableXBody">
+        {{#each recipes}} 
+        <tr id='recipeRowID{{@index}}'>
+            <td id='recipeR{{@index}}C0'>{{ItemName}}</td> 
+            <td id='recipeR{{@index}}C1'>{{Type}}</td> 
+            <td id='recipeR{{@index}}C2'>{{QtyCmp}}</td>
+            <td id='recipeR{{@index}}C3'>{{TechLevel}}</td>
+            <td id='recipeR{{@index}}C4'>{{Category}}</td>
+            <td id='recipeR{{@index}}C5'>{{hourly_prodpp}}</td> 
+            <td id='recipeR{{@index}}C6'>{{hourly_growth}}</td>
+            <td id='recipeR{{@index}}C7'>
+                <button onclick="expandRecipe(this, {{@index}}, {{RecipeID}})">Expand</button>
+                <button  onclick="deleteRecipe(this, {{RecipeID}})">Delete</button></td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table> 
+
+</html>

@@ -1,0 +1,46 @@
+<html>
+{{#each Execution}}
+{{this}}
+{{/each}}
+<h3>Add new Execution:</h3>
+<form id="addExecution" action="/addExecution" method="post">
+
+Factory Name: <select name="factoryID">
+	{{#each Factory}}
+	<option value="{{factoryID}}">{{id}}</option>
+	{{/each}}
+    </select> (alert under construction: "That factory has an %X production delay (multiplied)." <br>
+
+Blueprint: <select name="BPID">
+	{{#each Blueprint}}
+	<option value="{{BPID}}">{{recipe}}, Runs Left: {{runs_left}}</option>
+	{{/each}}
+    </select>(Null is unlimited BP)<br>
+
+    <br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+<h3>Current Manufacturing Jobs:</h3>
+<table>
+    <thead> 
+        <th>Factory Name</th>
+        <th>Blueprint Product</th>
+        <th>Production Rate (%)</th>
+        <th>Production Delay included (%)</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{#each Execution}} 
+        <tr> 
+            <td>{{factoryName}}</td>
+            <td>{{BPProductName}}</td>
+            <td>{{BPProductionRatePP}}</td>
+            <td>{{factoryDelayPP}}</td>
+            <td><button onclick="deleteExecution({{id}})">Delete Job</button></td>
+            <td><a href="/Execution/viewRecipe/{{id}}">View Blueprint Recipe </a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</html>
