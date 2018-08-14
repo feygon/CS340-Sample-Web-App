@@ -57,32 +57,34 @@ module.exports = function() {
         var sql = "";
         switch(by){
             case "Manufactured":
-                sql += 'SELECT rec.recipe_id as RecipeID, it.item_id as ProductID,' +
-                    'it.item_name as ProductName, COUNT(cmp.component_ID) AS QtyCmp, it.category as Category' +
-                    'FROM EvE_Recipes AS rec' +
-                    'JOIN EvE_Items as it ON rec.product=it.item_id' +
-                    'JOIN EvE_Comp_Amt as cmp ON cmp.CL_recipe_ID=rec.recipe_id' +
-                    'WHERE it.type="manufactured"' +
-                    'GROUP BY rec.product' +
-                    'ORDER BY it.item_name';
+                sql += 'SELECT rec.recipe_id AS RecipeID, it.item_name as ItemName,'
+                    + ' COUNT(cmp.component_ID) AS QtyCmp, it.type as Type, it.category as Category,'
+                    + ' it.refinement as TechLevel, hourly_prodpp, hourly_growth '
+                    + ' FROM EvE_Recipes AS rec JOIN EvE_Items AS it ON rec.product=it.item_id '
+                    + ' JOIN EvE_Comp_Amt AS cmp ON cmp.CL_recipe_ID=rec.recipe_id '
+                    + 'WHERE it.type="manufactured" '
+                    + 'GROUP BY rec.product '
+                    + 'ORDER BY it.item_name';
                 break;
             case "Farm":
-                sql += 'SELECT rec.recipe_id as RecipeID, it.item_id as ProductID,' +
-                    'it.item_name as ProductName, COUNT(cmp.component_ID) AS QtyCmp, it.category as Category' +
-                    'FROM EvE_Recipes AS rec' +
-                    'JOIN EvE_Items as it ON rec.product=it.item_id' +
-                    'JOIN EvE_Comp_Amt as cmp ON cmp.CL_recipe_ID=rec.recipe_id' +
-                    'WHERE it.type="farm"' +
-                    'GROUP BY rec.product' +
-                    'ORDER BY it.item_name';
+                sql += 'SELECT rec.recipe_id AS RecipeID, it.item_name as ItemName,'
+                    + ' COUNT(cmp.component_ID) AS QtyCmp, it.type as Type, it.category as Category,'
+                    + ' it.refinement as TechLevel, hourly_prodpp, hourly_growth '
+                    + ' FROM EvE_Recipes AS rec JOIN EvE_Items AS it ON rec.product=it.item_id '
+                    + ' JOIN EvE_Comp_Amt AS cmp ON cmp.CL_recipe_ID=rec.recipe_id '
+                    + 'WHERE it.type="farm" '
+                    + 'GROUP BY rec.product '
+                    + 'ORDER BY it.item_name';
                 break;
             default:
             case undefined:
-                sql += "SELECT rec.recipe_id AS RecipeID, it.item_name as ItemName," + 
-                " COUNT(cmp.component_ID) AS QtyCmp, it.type as Type, it.category as Category," +
-                " it.refinement as TechLevel, hourly_prodpp, hourly_growth " +
-                " FROM EvE_Recipes AS rec JOIN EvE_Items AS it ON rec.product=it.item_id " + 
-                " JOIN EvE_Comp_Amt AS cmp ON cmp.CL_recipe_ID=rec.recipe_id GROUP BY rec.product";
+                sql += "SELECT rec.recipe_id AS RecipeID, it.item_name as ItemName,"
+                    + " COUNT(cmp.component_ID) AS QtyCmp, it.type as Type, it.category as Category,"
+                    + " it.refinement as TechLevel, hourly_prodpp, hourly_growth "
+                    + " FROM EvE_Recipes AS rec JOIN EvE_Items AS it ON rec.product=it.item_id "
+                    + " JOIN EvE_Comp_Amt AS cmp ON cmp.CL_recipe_ID=rec.recipe_id " 
+                    + " GROUP BY rec.product"
+                    + " ORDER BY it.item_name";
                 break;
         }
         mysql.pool.query(sql, function(error, results, fields){
@@ -90,22 +92,58 @@ module.exports = function() {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-
+            var J_results = JSON.stringify(results);
             switch(by){
                 case "Farm":
-                    context.farmRecipes = results;
+                    context.recipes = results;
+                    context.J_recipes = J_results;
                     break;
                 case "Manufactured":
-                    context.manufacturedRecipes = results;
+                    context.recipes = results;
+                    context.J_recipes = J_results;
                     break;
                 default:
                 case undefined:
                     context.recipes = results;
+                    context.J_recipes = J_results;
                     break;
             }
             complete();
         });
     }
+
+    // function getBPs(res, mysql, context, complete, by){
+    //     var sql = "";            
+    //     switch(by){
+    //         default:
+    //         case undefined:
+    //             sql += /*query*/;
+    //             break;
+    //     }
+
+    //     mysql.pool.query(sql, function(error, results, fields){
+    //         if(error){
+    //             res.write(JSON.stringify(error));
+    //             res.end();
+    //         }
+    //         var J_results = JSON.stringify(results);
+    //         switch(by){
+    //             case "x":
+    //                 context.x = results;
+    //                 break;
+    //             case "y":
+    //                 context.y = results;
+    //                 break;
+    //             default:
+    //             case undefined:
+    //                 context.components = results;
+    //                 context.J_components = J_results;
+    //                 break;
+    //         }
+    //         complete();
+    //     });
+    // }
+
 
     function getComponentLists(res, mysql, context, complete, by){
         var sql = "";            
@@ -136,7 +174,7 @@ module.exports = function() {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-
+            var J_results = JSON.stringify(results);
             switch(by){
                 case "x":
                     context.x = results;
@@ -147,6 +185,7 @@ module.exports = function() {
                 default:
                 case undefined:
                     context.components = results;
+                    context.J_components = J_results;
                     break;
             }
             complete();
@@ -191,78 +230,62 @@ module.exports = function() {
     });
 
     router.get('/recipe/',function(req,res){
-            callbackCount=0;
-            var context={};
-            context.jsscripts = ["recipes.js", "helpers.js", "deleteRecipes.js"];
-    //      context.hb=handlebars;
-            var mysql=req.app.get('mysql');
-            getRecipes(res, mysql, context, complete);
-            getItems(res, mysql, context, complete, "noRecipe");
-            getItems(res, mysql, context, complete)
-            getItems(res, mysql, context, complete, "nothing");
-            getComponentLists(res, mysql, context, complete);
-            function complete(){
-                callbackCount++;
-                if (callbackCount >= 5){
-    //              console.log(context);
-                    res.render('Recipes', context);
-                }
+        callbackCount=0;
+        var context={};
+        context.jsscripts = ["recipes.js", "helpers.js"];
+//      context.hb=handlebars;
+        var mysql=req.app.get('mysql');
+        getRecipes(res, mysql, context, complete);
+        getItems(res, mysql, context, complete, "noRecipe");
+        getItems(res, mysql, context, complete)
+        getItems(res, mysql, context, complete, "nothing");
+        getComponentLists(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if (callbackCount >= 5){
+//              console.log(context);
+                res.render('Recipes', context);
             }
+        }
     });
 
-        router.get('/recipe/:by',function(req,res){
-            callbackCount=0;
-            var context={};
-            context.jsscripts = ["addRecipeComponent.js", "expandRecipes.js", "deleteRecipes.js"];
-            var mysql=req.app.get('mysql');
+    router.get('/recipe/:by',function(req,res){
+        callbackCount=0;
+        var context={};
+        context.jsscripts = ["recipes.js", "helpers.js"];
+        var mysql=req.app.get('mysql');
 
-            getRecipes(res, mysql, context, complete, req.params.by);
-            getItems(res, mysql, context, complete, "noRecipe");
-            getItems(res, mysql, context, complete)
-            getItems(res, mysql, context, complete, "nothing");
-
-            function complete(){
-                callbackCount++;
-                if (callbackCount >= 4){
-                    res.render('Recipes', context);
-                }
+        getRecipes(res, mysql, context, complete, req.params.by);
+        getItems(res, mysql, context, complete, "noRecipe");
+        getItems(res, mysql, context, complete)
+        getItems(res, mysql, context, complete, "nothing");
+        getComponentLists(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if (callbackCount >= 5){
+                res.render('Recipes', context);
             }
+        }
     });
 
-        router.get('/factory/',function(req,res){
-            callbackCount=0;
-            var context={};
-            context.jsscripts = ["addRecipeComponent.js"];
-            var mysql=req.app.get('mysql');
-            getRecipes(res, mysql, context, complete);
-            getItems(res, mysql, context, complete, "noRecipe");
-            getItems(res, mysql, context, complete)
-            getItems(res, mysql, context, complete, "nothing");
-            function complete(){
-                callbackCount++;
-                if (callbackCount >= 4){
-                    res.render('Recipes', context);
-                }
-            }
-    });
+    //     router.get('/factory/',function(req,res){
+    //         callbackCount=0;
+    //         var context={};
+    //         context.jsscripts = ["recipes.js", "helpers.js"];
+    //         var mysql=req.app.get('mysql');
+    //         getRecipes(res, mysql, context, complete);
+    //         getItems(res, mysql, context, complete, "noRecipe");
+    //         getItems(res, mysql, context, complete)
+    //         getItems(res, mysql, context, complete, "nothing");
+    //         function complete(){
+    //             callbackCount++;
+    //             if (callbackCount >= 4){
+    //                 res.render('Recipes', context);
+    //             }
+    //         }
+    // });
 
     /* Display one person for the specific purpose of updating people */
-
-    // router.get('/:id', function(req, res){
-    //     callbackCount = 0;
-    //     var context = {};
-    //     context.jsscripts = ["selectedplanet.js", "updateperson.js"];
-    //     var mysql = req.app.get('mysql');
-    //     getPerson(res, mysql, context, req.params.id, complete);
-    //     getPlanets(res, mysql, context, complete);
-    //     function complete(){
-    //         callbackCount++;
-    //         if(callbackCount >= 2){
-    //             res.render('update-person', context);
-    //         }
-
-    //     }
-    // });
 
     /* Adds a person, redirects to the people page after adding */
 
