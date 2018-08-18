@@ -1,0 +1,28 @@
+<html>
+
+<script>
+	console.log(JSON.parse('{{{J_BPC}}}'));
+</script>
+{{#BPC}}
+<h2>Update BPC {{BP_id}}: {{item_name}}, {{runs_left}} runs:</h2><br>
+<form id="update-BPC-form" action="/Serenity/updateBPC/{{BP_id}}" method="post">
+	<div class="BPC">
+		<label class="BPC">Product</label>
+		{{item_name}}
+	</div><br>
+    <div class="BPC">
+    	<label class="BPC">Runs Left</label>
+    	<input type="number" name="new_runs_left" min="0" max="{{runs_left}}">
+    </div><br>
+    <div class="BPC">
+    	<label class="BPC">Maximum Runs </label>
+    	{{runs_left}}
+    </div><br>
+    <div class="BPC">
+    	<label class="BPC" float="left">Hourly Production (%) </label> {{hourly_prodpp}}
+    </div><br>
+<button type="submit">Update</button>
+{{/BPC}}
+</form>
+<br>
+</html>

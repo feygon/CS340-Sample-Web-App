@@ -15,23 +15,23 @@
 <br/>
 <h3>Current Markets:</h3>
 <table>
-    <thead> 
-        <th>Name</th> 
-        <th>Number of items Sold</th> 
+    <thead>
+        <th>Name</th>
+        <th>Number of items Sold</th>
 	<th>Number of items Bought</th>
-    </thead> 
-    <tbody> 
-        {{#each Market}} 
-        <tr> 
-            <td>{{marketName}}</td> 
-            <td>PLACEHOLDER for count of items sold</td> 
+    </thead>
+    <tbody>
+        {{#each Market}}
+        <tr>
+            <td>{{marketName}}</td>
+            <td>PLACEHOLDER for count of items sold</td>
 	    <td>PLACEHOLDER for count of items bought</td>
             <td><button onclick="deleteMarket({{id}})">Delete</button></td>
             <td><a href="/items/{{id}}">Update</a></td>
         </tr>
         {{/each}}
-    </tbody> 
-</table> 
+    </tbody>
+</table>
 <h3>Which markets are selling a product?</h3>
 Pick a product: <select name="itemCarriedSS">
 	{{#each Item}}

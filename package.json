@@ -1,9 +1,10 @@
 {
-  "name": "hello-world",
+  "name": "Little Sisters of Serenity",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
+    "lint": "eslint . --ext .js, .jsx"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Richard Nickerson",

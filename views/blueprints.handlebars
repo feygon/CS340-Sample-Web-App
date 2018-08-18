@@ -1,0 +1,59 @@
+<html>
+
+<div>
+    <label>Search Blueprint Copies</label>
+    <form id="searchBox" action="/Serenity/SearchBPC/" method="get">
+        <input type="text" placeholder="Search..." name="q">
+        <input type="submit" value="Find BPCs">
+    </form>
+</div><br>
+
+
+
+<h3>Current Blueprints:</h3>
+<table id='recipeTableX'>
+    <thead>
+        <th>Product Name</th>
+        <th>Hourly Production (%)</th>
+        <th>Maximum Runs</th>
+        <th></th>
+    </thead>
+    <tbody id='recipeTableXBody'>
+        {{#each BP}}
+        <tr id='recipeRowID{{@index}}'>
+            <td>{{item_name}}</td>
+            <td>{{hourly_prodpp}}</td>
+            <td>{{runs_left}}</td>
+            <td><button onclick="deleteBPC({{@index}}, {{BP_id}})"
+                {{#unless limitedqq}}
+                    hidden="true"
+                {{/unless}}
+                >Delete</button>
+                {{#unless limitedqq}}
+                    Original
+                {{/unless}}
+            </td>
+            <td>
+                {{#if limitedqq}}
+                <a href="/Serenity/BP/{{BP_id}}">Update</a>
+                {{/if}}
+                {{#unless limitedqq}}
+                <a href="/Serenity/BPO-Copy/{{BP_id}}">Copy</a>
+                {{/unless}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<form action="/Serenity/BP/">
+    <input type="submit" value="Reset Page">
+</form>
+
+<!-- <h3>What ingredients does this recipe take?</h3>
+Pick a recipe: <select name="BPRecipe2">
+    {{#each Recipe}}
+    <option value="{{BP_id}}">{{item_name}}</option>
+    {{/each}}
+    </select> <button onclick="expandRecipe(BPRecipe2.value)">Expand</button> -->
+</html>

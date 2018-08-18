@@ -4,12 +4,13 @@
 
     var J_recipes = JSON.parse('{{{J_recipes}}}');
     var J_components = JSON.parse('{{{J_components}}}');
-
+    console.log(J_recipes);
 </script>
 
 <script>
 
     var expanded = new Array();
+    var addedRowCount = 0;
     var List__items = {};
     var List__nothing = {};
     var List__components = {};
@@ -86,47 +87,55 @@
 </script>
 
 
-<h3>Add new Recipe:</h3>
-<form id="addRecipe" action="/addRecipe" method="post">
-    Products without Recipes: 
-    <select id="recipeSelect" name="recipeName">
-	   {{#each noRecipeItems}}
-	   <option value="{{Item_ID}}">{{ItemName}}</option>
-	   {{/each}}
-    </select><br>
+<h3>Add new Recipe:</h3><br>
+<form id="addRecipe" action="/Serenity/addRecipe" method="post">
+    <input type="number" hidden="true" name="addedRows" id="counterInput" value="0">
 
-    Type: 
-    <select name="recipeType">
-        <option value="farm">Farmed</option>
-        <option value="manufactured">Manufactured</option>
-    </select><br>
-    Hourly Growth (%): 
-    <input type="number" name="hourly_prodpp" min="0" max = "100"><br>
-    Hourly Production (#): 
-    <input type="number" name="hourlyProductionPP" min="0"><br>
-    <table id="componentTable">
-        <thead>
-            <th>Component</th>
-            <th>Quantity</th>
-        </thead>
-        <tbody>
-            <tr id="hiddenRow1" hidden=true> <!-- add leaves to this-->
-                <td><select  name="componentID" value="componentID">
-                    {{# each nothing}}
-                    <option value={{ItemID}}>{{ItemName}}</option>
-                    {{/each}}
-                    {{#each items}}
-                    <option value="{{ItemID}}">{{ItemName}}</option>
-                    {{/each}}
-                </select></td>
-                <td><input type="number" name="componentQty" min="0"></td>
-                <td><button type="button" onclick="deleteRow(this)">Remove</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <label>Products without Recipes</label>
+        <select id="recipeSelect" name="productID">
+	       {{#each noRecipeItems}}
+	       <option value="{{ItemID}}">{{Type}}: {{ItemName}}</option>
+	       {{/each}}
+        </select>
+    </div>
+    <div>
+        <label>Type</label>
+        Farmed recipes have hourly growth in units.<br>
+        <label> </label>
+        Manufactured recipes have hourly production percentage.
+    </div>
+    <div>
+        <label>Hourly Growth (#)</label>
+        <input type="number" name="hourly_growth" min="0" max = "100">
+    </div>
+    <div>
+        <label>Hourly Production (%)</label>
+        <input type="number" name="hourly_prodpp" min="0">
+    </div>
+    <div>
+        <table id="componentTable">
+            <thead>
+                <th>Component</th>
+                <th>Quantity</th>
+            </thead>
+            <tbody id="componentBody">
+                <!-- <tr id="hiddenRow1" hidden=true> add leaves to this-->
+                    <!-- <td><select  name="componentID" value="componentID"> -->
+                        <!-- {{# each nothing}} -->
+                        <!-- <option value={{ItemID}}>{{ItemName}}</option> -->
+                        <!-- {{/each}} -->
+                        <!-- {{#each items}} -->
+                        <!-- <option value="{{ItemID}}">{{ItemName}}</option> -->
+                        <!-- {{/each}} -->
+                    <!-- </select></td> -->
+                    <!-- <td><input type="number" name="componentQty" min="0"></td> -->
+                    <!-- <td><button type="button" onclick="deleteRow(this)">Remove</button></td> -->
+                <!-- </tr> -->
+            </tbody>
+        </table>
         <button type="button" onclick="addRecipeComponent()">Add a component</button>
-               
-	<br>
+    </div>
 
     <br>
     <input type="submit" value="Submit">
@@ -164,6 +173,5 @@
         </tr> 
         {{/each}}
     </tbody> 
-</table> 
-
+</table>
 </html>

@@ -79,23 +79,23 @@ function changeBuy(event){
 <br/>
 <h3>Current people:</h3>
 <table>
-    <thead> 
-        <th>Name</th> 
-        <th>Type</th> 
-        <th>Volume</th>  
+    <thead>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Volume</th>
         <th>Refinement Level</th>
-    </thead> 
-    <tbody> 
-        {{#each ItemCarried}} 
-        <tr> 
-            <td>{{itemName}}</td> 
-            <td>{{itemType}}</td> 
-            <td>{{itemVol}}</td> 
+    </thead>
+    <tbody>
+        {{#each ItemCarried}}
+        <tr>
+            <td>{{itemName}}</td>
+            <td>{{itemType}}</td>
+            <td>{{itemVol}}</td>
             <td>{{itemRefinement}}</td>
             <td><button onclick="deleteItem({{id}})">Delete</button></td>
             <td><a href="/items/{{id}}">Update</a></td>
-        </tr> 
-        {{/each}} 
-    </tbody> 
-</table> 
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 </html>

@@ -1,0 +1,32 @@
+<html>
+
+<!-- <script>console.log(JSON.parse('{{{J_BPO}}}'));</script> -->
+
+<h3>Copy a Blueprint Original:</h3>
+
+{{#BPO}}
+<h2>BPO {{BP_id}} -- {{item_name}}</h2><br>
+<form id="copy-BPO-form" action="/Serenity/MakeCopy/{{recipe}}" method="post">
+    <div class="BPO">
+        <label class="BPO">Product</label>{{item_name}}
+    </div><br>
+    <div class="BPO">
+        <label class="BPO">Max Runs</label>{{runs_left}}
+    </div><br>
+    <div class="BPO">
+        <label class="BPO">Runs</label>
+        <input type="number" name="new_runs_left" min="0" max="{{runs_left}}">
+    </div><br>
+    <div class="BPO">
+        <label class="BPO">Maximum Runs </label>
+        {{runs_left}}
+    </div><br>
+    <div class="BPO">
+        <label class="BPO">Hourly Production (%)  </label> {{hourly_prodpp}}
+    </div><br>
+<button type="submit">Copy</button>
+{{/BPO}}
+</form>
+<br>
+
+</html>

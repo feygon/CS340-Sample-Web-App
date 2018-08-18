@@ -1,18 +1,54 @@
 <html>
-{{#each Factory}}
-{{this}}
-{{/each}}
-<h3>Add new Factory:</h3>
-<form id="addFactory" action="/addFactory" method="post">
-    Factory Name: <input type="text" name="factoryName"><br>
-    Capacity: <input type="number" min="0" max="11" name="factoryCapacity"><br>
-    Production Delay (%): <input type="number" min="0" max="100" name="factoryDelayPP"><br>
+
+<script>
+    var J_Fac = {};
+    J_Fac = JSON.parse(('{{{J_executes}}}'));
+    console.log(J_Fac);
+    console.log(J_Fac[0]);
+    console.log("factory is " + J_Fac[0].factory);
+    console.log("length is " + J_Fac.length);
+    var expanded = new Array();
+</script>
+
+<br/>
+
+<h3>Add new Factory:</h3><br>
+<form id="addFactory" action="/Serenity/addFactory" method="post">
+    <div>
+        <label>Factory Name</label> <input type="text" name="factoryName"></div>
+    <div>
+        <label>Capacity</label> <input type="number" min="0" max="11" name="factoryCapacity">
+    </div>
+    <div>
+        <label>Production Delay (%)</label> <input type="number" min="0" max="100" name="factoryDelayPP"></div>
     <br>
     <input type="submit" value="Submit">
  </form>
+    <br>
+
+ <h3>Start a new Job:</h3><br>
+<form id="addFactory" action="/Serenity/addJob" method="post">
+    <div>
+        <label>Factory</label> <select name="whichFactory">
+            {{#each Factories}}
+            <option value="{{facID}}">{{facName}}</option>
 <br/>
+            {{/each}}
+        </select>
+    </div>
+    <div>
+        <label>Blueprint</label> <select name="whichBPC">
+            {{#each BPC}}
+            <option value="{{BP_id}}">{{item_name}}: {{runs_left}} Runs Left, {{hourly_prodpp}}% per hour</option>
+            {{/each}}
+        </select>
+    </div>
+    <br>
+    <input type="submit" value="Submit">
+ </form><br>
+
 <h3>Current Factories:</h3>
-<table>
+<table id='factoryTableX'>
     <thead> 
         <th>Factory Name</th> 
         <th>Capacity</th> 
@@ -28,8 +64,29 @@
 	    <td><a href="/factories/viewJobs/{{id}}">Executing</a></td>
             <td><button onclick="deleteRecipe({{id}})">Delete</button></td>
             <td><a href="/factories/capacity/{{id}}">Update Capacity</a></td>
+    <tbody id='factoryTableXBody'>
+        {{#each Factories}}
+        <tr id=factoryRowID{{@index}}>
+            <td id='factoryR{{@index}}C0'>{{facName}}</td>
+            <td id='factoryR{{@index}}C1'>{{capacity}}</td>
+            <td id='factoryR{{@index}}C2'>{{delay}}</td>
+	    <td id='factoryR{{@index}}C3'>
+            <button id='expandButtonR{{@index}}'; type="button"
+                onclick="expandFactory({{@index}}, {{facID}})">Executing
+            </button></td>
+        <!-- <td><a href="/factories/capacity/{{facID}}">Update Capacity</a></td> -->
         </tr> 
         {{/each}} 
     </tbody> 
 </table> 
 </html>
+
+<!--         <tr id='recipeRowID{{@index}}'>
+            <td id='recipeR{{@index}}C0'>{{ItemName}}</td>
+            <td id='recipeR{{@index}}C1'>{{Type}}</td>
+            <td id='recipeR{{@index}}C2'>{{QtyCmp}}</td>
+            <td id='recipeR{{@index}}C3'>{{TechLevel}}</td>
+            <td id='recipeR{{@index}}C4'>{{Category}}</td>
+            <td id='recipeR{{@index}}C5'>{{hourly_prodpp}}</td>
+            <td id='recipeR{{@index}}C6'>{{hourly_growth}}</td>
+            <td id='recipeR{{@index}}C7'> -->
